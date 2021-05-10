@@ -74,7 +74,9 @@ public class ArrayUtil {
     public static void main(String[] args) {
         int[] a = new int[]{9, 8, 10, 20, 6, 8, 7};
         int[] b = new int[]{9, 8, 11, 20, 6, 8, 7};
+
         printArray(a);
         System.out.println(isArrayEqual(a,b));
+
     }
 }
