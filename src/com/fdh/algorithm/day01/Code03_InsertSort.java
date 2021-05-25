@@ -11,9 +11,10 @@ import static com.fdh.algorithm.util.ArrayUtil.printArray;
  * 然后找到合适自己的位置，使得插入第n个数的这个序列也是排好顺序的。
  * 按照此法对所有元素进行插入，直到整个序列排为有序的过程，称为"插入排序“
  *
- * 时间复杂度计算：1+2+...(n-1)
+ * 时间复杂度计算：1+2+...(n-1)，等差数列。
+ * 注：当待排序数组是有序时，是最优的情况，只需当前数跟前一个数比较一下就可以了，这时一共需要比较 N-1 次，时间复杂度为 O(N)
  */
-public class InsertSort {
+public class Code03_InsertSort {
 
 
     public static void insertSort(int[] arr) {
