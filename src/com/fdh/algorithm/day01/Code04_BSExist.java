@@ -6,7 +6,7 @@ import static com.fdh.algorithm.day01.Code03_InsertSort.insertSort;
 import static com.fdh.algorithm.util.ArrayUtil.generatorRandomArray;
 
 /**
- * 在一个有序数组中，找某个数是否存在
+ * 在一个有序数组中，找某个数是否存在（二分法）
  */
 public class Code04_BSExist {
     /**
