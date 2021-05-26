@@ -49,7 +49,7 @@ public class Code08_EvenTimesOddTimes {
 
         while (data != 0) {
             //获取二进制形式最右侧的1，其他位置都清0
-            int rightOne = data & ((~data) + 1);
+            int rightOne = data & ((~data) + 1);//data & (-data)
             count++;
             //data的最右侧1置0，其他保持不变，若该数据不为0，继续获取下一个最右侧1
             data ^= rightOne;
