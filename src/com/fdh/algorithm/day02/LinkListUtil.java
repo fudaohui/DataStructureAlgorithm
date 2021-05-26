@@ -66,6 +66,7 @@ public class LinkListUtil {
         }
         System.out.println(stringBuilder.subSequence(0, stringBuilder.length() - 1).toString());
     }
+
     public static void printLinkList(DoubleNode head) {
         StringBuilder stringBuilder = new StringBuilder("");
         while (head != null) {
@@ -75,10 +76,4 @@ public class LinkListUtil {
         System.out.println(stringBuilder.subSequence(0, stringBuilder.length() - 1).toString());
     }
 
-    public static void main(String[] args) {
-//        Node head = generateRandomLinkList(20, 30);
-//        printLinkList(head);
-        DoubleNode head = generateRandomDoubelLinkList(20, 30);
-        printLinkList(head);
-    }
 }
