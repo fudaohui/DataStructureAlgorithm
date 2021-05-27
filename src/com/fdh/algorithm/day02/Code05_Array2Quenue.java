@@ -9,6 +9,7 @@ package com.fdh.algorithm.day02;
  * 这里应该可以扩容直到maxSize
  * <p>
  * 核心!::俩个指针，指示头尾
+ * 缺点：从前面取数据时候数据有空间浪费，复用性不强，引入环形队列
  */
 public class Code05_Array2Quenue<T> {
     /**
