@@ -3,7 +3,7 @@ package com.fdh.algorithm.day02;
 /**
  * 双向链表
  */
-public class DoubleNode<T> {
+public class DoubleNode {
 
     public Integer value;
     public DoubleNode pre;

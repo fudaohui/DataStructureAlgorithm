@@ -23,7 +23,7 @@ public class Code04_DoubleLink2Stack {
      * @param value
      */
     private void addFromHead(Integer value) {
-        DoubleNode cur = new DoubleNode<>(value);
+        DoubleNode cur = new DoubleNode(value);
         if (head == null) {
             head = cur;
             tail = cur;
