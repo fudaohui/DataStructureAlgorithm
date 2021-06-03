@@ -1,5 +1,7 @@
 package com.fdh.algorithm.day03;
 
+import java.util.TreeSet;
+
 /**
  * 求数组arr[L..R]中的最大值.
  * 核心：二分法，递归
@@ -29,7 +31,22 @@ public class Code01_GetL2RMaxFromArray {
     }
 
     public static void main(String[] args) {
-        int[] arr = {9, 9, 6, 4, 10, 3, 5, 7, 0};
-        System.out.println(getMaxDataFromArray(arr, 3, 5));
+//        int[] arr = {9, 9, 6, 4, 10, 3, 5, 7, 0};
+//        System.out.println(getMaxDataFromArray(arr, 3, 5));
+
+
+        TreeSet<Integer> integers = new TreeSet<>();
+        for (int i = 0; i < 10; i++) {
+            int v = (int) (Math.random() * (10 + 1) * 10);
+            System.out.println("insert v:" + v);
+            integers.add(v);
+        }
+
+        for (Integer integer : integers) {
+            System.out.println(integer);
+        }
+
+
     }
+
 }
