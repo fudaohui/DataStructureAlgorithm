@@ -37,6 +37,14 @@ public class Code02_MergeSort {
         merge(arr, leftIndex, midIndex, rightIndex);
     }
 
+    /**
+     * 合并，注意midIndex两边的数据前提是已经有序了
+     *
+     * @param arr
+     * @param leftIndex
+     * @param midIndex
+     * @param rightIndex
+     */
     private static void merge(int[] arr, int leftIndex, int midIndex, int rightIndex) {
         int[] temp = new int[rightIndex - leftIndex + 1];
         int i = 0;
@@ -46,10 +54,10 @@ public class Code02_MergeSort {
         while (p1 <= midIndex && p2 <= rightIndex) {
             temp[i++] = arr[p1] < arr[p2] ? arr[p1++] : arr[p2++];
         }
-        if (p1 <= midIndex) {
+        while (p1 <= midIndex) {
             temp[i++] = arr[p1++];
         }
-        if (p2 <= rightIndex) {
+        while (p2 <= rightIndex) {
             temp[i++] = arr[p2++];
         }
         //temp倒腾到arr
@@ -60,52 +68,48 @@ public class Code02_MergeSort {
 
     // 非递归方法实现
     public static void mergeSort2(int[] arr) {
-
-
         int step = 1;
-        while (step < arr.length) {
+        while (step < (arr.length - 1) * 2) {
             int leftIndex = 0;
             int midIndex = 0;
             int rightIndex = 0;
             step *= 2;
-            for (int j = 0; j < arr.length / step; j++) {
-                leftIndex = j * step;
-                rightIndex = (j + 1) * step - 1;
-                if ((arr.length - 1 - rightIndex) < step) {//不够一个步长了
-                    rightIndex = arr.length - 1;
-                }
+            while (leftIndex < arr.length) {
+                rightIndex = leftIndex + step - 1;//先求右边，此时右边可能跨界
+                midIndex = leftIndex + ((rightIndex - leftIndex) >> 1);//根据右边获取左边的也可能跨界
+                rightIndex = Math.min(rightIndex, arr.length - 1);//修正
+                midIndex = Math.min(midIndex, rightIndex);//修正
                 //判断
-                midIndex = leftIndex + ((rightIndex - leftIndex) >> 1);
                 merge(arr, leftIndex, midIndex, rightIndex);
+                leftIndex = rightIndex + 1;
             }
         }
-
     }
 
     public static void main(String[] args) {
 
 
-        int[] a = {8, 5, 4, 6,2};
-        int[] copyArray = ArrayUtil.copyArray(a);
-        mergeSort(a);
-        mergeSort2(copyArray);
-        ArrayUtil.printArray(a);
-        ArrayUtil.printArray(copyArray);
-//        int maxSize = 20;
-//        int maxValue = 22;
-//        for (int i = 0; i < 50000; i++) {
-//            int[] randomArray = ArrayUtil.generatorRandomArray(maxSize, maxValue);
-//            int[] copyArray = ArrayUtil.copyArray(randomArray);
-//            mergeSort(randomArray);
-//            mergeSort2(copyArray);
-//            if (!ArrayUtil.isArrayEqual(randomArray, copyArray)) {
-//                System.out.println("完蛋了");
-//                ArrayUtil.printArray(randomArray);
-//                ArrayUtil.printArray(copyArray);
-//                break;
-//            }
-//
-//        }
+//        int[] a = {7, 6, 5, 4, 3, 2, 1};
+//        int[] copyArray = ArrayUtil.copyArray(a);
+//        mergeSort(a);
+//        mergeSort2(copyArray);
+//        ArrayUtil.printArray(a);
+//        ArrayUtil.printArray(copyArray);
+        int maxSize = 100;
+        int maxValue = 100;
+        for (int i = 0; i < 500000; i++) {
+            int[] randomArray = ArrayUtil.generatorRandomArray(maxSize, maxValue);
+            int[] copyArray = ArrayUtil.copyArray(randomArray);
+            mergeSort(randomArray);
+            mergeSort2(copyArray);
+            if (!ArrayUtil.isArrayEqual(randomArray, copyArray)) {
+                System.out.println("完蛋了");
+                ArrayUtil.printArray(randomArray);
+                ArrayUtil.printArray(copyArray);
+                break;
+            }
+
+        }
 
     }
 }
