@@ -6,6 +6,8 @@ import com.fdh.algorithm.util.ArrayUtil;
  * 归并排序
  * <p>
  * 二分，递归，合并
+ *
+ * 时间复杂度：O(N*logN)，空间复杂度：O(N)
  */
 public class Code02_MergeSort {
 
