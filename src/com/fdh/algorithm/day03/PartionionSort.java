@@ -3,6 +3,8 @@ package com.fdh.algorithm.day03;
 
 import com.fdh.algorithm.util.ArrayUtil;
 
+import static com.fdh.algorithm.util.ArrayUtil.swap;
+
 /**
  *
  */
@@ -22,7 +24,7 @@ public class PartionionSort {
         int index = 0;
         while (index < arr.length) {
             if (arr[index] <= target) {
-                ArrayUtil.swap(arr, index, ++lessThanIndex);
+                swap(arr, index, ++lessThanIndex);
             }
             index++;
         }
@@ -34,26 +36,30 @@ public class PartionionSort {
      * @param arr
      * @param target
      */
-    public static void partion2(int[] arr, int target) {
+    public static void partion2(int[] arr, int l, int r, int target) {
 
-        int lessThanIndex = -1;
-        int index = 0;
-        while (index < arr.length) {
+        int lessIndex = l - 1;
+        int greaterIndex = r + 1;
+        int index = l;
+        while (index < greaterIndex) {
             if (arr[index] < target) {
-                ArrayUtil.swap(arr, index++, ++lessThanIndex);
-            } else if (arr[index] == target) {
-                ArrayUtil.swap(arr, index, lessThanIndex);
+                swap(arr, index++, ++lessIndex);
+            } else if (arr[index] > target) {
+                swap(arr, index, --greaterIndex);
+            } else {
+                index++;
             }
         }
+
     }
 
 
     public static void main(String[] args) {
 
-//        int[] a = {0, 5, 4, 3, 2, 1, 2};
-        int[] a = {5, 4, 3, 2, 3};
+        int[] a = {0, 5, 4, 3, 2};
+//        int[] a = {5, 3, 2, 3, 2};
 //        int[] a = {1,2,3,4,5};
-        partion2(a, 3);
+        partion2(a, 0, a.length - 1, 3);
         ArrayUtil.printArray(a);
     }
 }
