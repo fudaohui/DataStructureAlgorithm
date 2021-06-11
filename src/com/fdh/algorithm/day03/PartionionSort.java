@@ -3,7 +3,10 @@ package com.fdh.algorithm.day03;
 
 import com.fdh.algorithm.util.ArrayUtil;
 
-import static com.fdh.algorithm.util.ArrayUtil.swap;
+import java.util.Arrays;
+
+import static com.fdh.algorithm.util.ArrayUtil.*;
+import static com.fdh.algorithm.util.ArrayUtil.printArray;
 
 /**
  *
@@ -81,10 +84,29 @@ public class PartionionSort {
 //        int[] a = {0, 5, 4, 3, 2};
 //        int[] a = {5, 4, 3, 2, 1, 0};
 //        int[] a = {5, 3, 2, 3, 2};
-        int[] a = {5, 3, 2, 3, 2, 10, 3, 1, 0, 11};
+//        int[] a = {5, 3, 2, 3, 2, 10, 3, 1, 0, 11};
 //        int[] a = {1,2,3,4,5};
 //        partion2(a, 0, a.length - 1, 3);
-        quickSort(a, 0, a.length - 1);
-        ArrayUtil.printArray(a);
+//        quickSort(a, 0, a.length - 1);
+//        ArrayUtil.printArray(a);
+
+        int testTime = 500000;
+        int maxSize = 100;
+        int maxValue = 100;
+        boolean succeed = true;
+        for (int i = 0; i < testTime; i++) {
+            int[] arr1 = generatorRandomArray(maxSize, maxValue);
+            int[] arr2 = copyArray(arr1);
+            quickSort(arr1, 0, arr1.length - 1);
+            Arrays.sort(arr2);
+            if (!isArrayEqual(arr1, arr2)) {
+                succeed = false;
+                printArray(arr1);
+                printArray(arr2);
+                break;
+            }
+        }
+        System.out.println(succeed ? "Nice!" : "Fucking fucked!");
+
     }
 }
