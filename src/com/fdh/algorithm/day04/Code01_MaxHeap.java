@@ -68,6 +68,9 @@ public class Code01_MaxHeap {
         }
 
         public int pop() {
+            if (isEmpty()) {
+                throw new RuntimeException("the heap is empty!");
+            }
             int target = heapArr[1];
             //调整完全二叉树
             ArrayUtil.swap(heapArr, 1, heapSize--);
@@ -82,6 +85,10 @@ public class Code01_MaxHeap {
                 largestIndex = (rightIndex <= heapSize) && heapArr[rightIndex] > heapArr[leftIndex] ? rightIndex : leftIndex;
                 //父子比较
                 largestIndex = heapArr[largestIndex] > heapArr[curIndex] ? largestIndex : curIndex;
+                //可能死循环
+                if (largestIndex == curIndex) {
+                    break;
+                }
                 ArrayUtil.swap(heapArr, curIndex, largestIndex);
                 curIndex = largestIndex;
                 leftIndex = curIndex << 1;
@@ -90,19 +97,102 @@ public class Code01_MaxHeap {
             return target;
         }
 
+        public static class RightMaxHeap {
+            private int[] arr;
+            private final int limit;
+            private int size;
+
+            public RightMaxHeap(int limit) {
+                arr = new int[limit];
+                this.limit = limit;
+                size = 0;
+            }
+
+            public boolean isEmpty() {
+                return size == 0;
+            }
+
+            public boolean isFull() {
+                return size == limit;
+            }
+
+            public void push(int value) {
+                if (size == limit) {
+                    throw new RuntimeException("heap is full");
+                }
+                arr[size++] = value;
+            }
+
+            public int pop() {
+                int maxIndex = 0;
+                for (int i = 1; i < size; i++) {
+                    if (arr[i] > arr[maxIndex]) {
+                        maxIndex = i;
+                    }
+                }
+                int ans = arr[maxIndex];
+                arr[maxIndex] = arr[--size];
+                return ans;
+            }
+
+        }
+
     }
 
 
     public static void main(String[] args) {
 
-        MaxHeap maxHeap = new MaxHeap(10);
-        for (int i = 1; i <= 10; i++) {
-            maxHeap.push(i);
-        }
-        ArrayUtil.printArray(maxHeap.heapArr);
+//        int value = 1000;
+//        int limit = 100;
+//        int testTimes = 10;
+//        for (int i = 0; i < testTimes; i++) {
+//            int curLimit = (int) (Math.random() * limit) + 1;
+//            MaxHeap my = new MaxHeap(curLimit);
+//            MaxHeap.RightMaxHeap test = new MaxHeap.RightMaxHeap(curLimit);
+//            int curOpTimes = (int) (Math.random() * limit);
+//            for (int j = 0; j < curOpTimes; j++) {
+//                if (my.isEmpty() != test.isEmpty()) {
+//                    System.out.println(" isEmpty Oops!");
+//                }
+//                if (my.isFull() != test.isFull()) {
+//                    System.out.println("isFull Oops!");
+//                }
+//                if (my.isEmpty()) {
+//                    int curValue = (int) (Math.random() * value);
+//                    my.push(curValue);
+//                    test.push(curValue);
+//                } else if (my.isFull()) {
+//                    if (my.pop() != test.pop()) {
+//                        System.out.println("pop Oops!");
+//                    }
+//                } else {
+//                    if (Math.random() < 0.5) {
+//                        int curValue = (int) (Math.random() * value);
+//                        my.push(curValue);
+//                        test.push(curValue);
+//                    } else {
+//                        if (my.pop() != test.pop()) {
+//                            System.out.println("random pop Oops!");
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        System.out.println("finish!");
 
-        System.out.println(maxHeap.pop());
-        ArrayUtil.printArray(maxHeap.heapArr);
+
+        int count = 50;
+        MaxHeap maxHeap = new MaxHeap(20);
+        for (int i = 0; i < 20; i++) {
+            int a = (int) (Math.random() * (count + 1));
+            maxHeap.push(a);
+        }
+
+
+        for (int i = 0; i < 20; i++) {
+            System.out.println(maxHeap.pop());
+        }
 
     }
+
 }
