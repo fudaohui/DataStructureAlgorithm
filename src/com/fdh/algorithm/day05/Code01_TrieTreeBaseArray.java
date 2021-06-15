@@ -57,12 +57,26 @@ public class Code01_TrieTreeBaseArray {
     }
 
     /**
-     * 前缀树删除
+     * 前缀树删除,先查询在删除
      *
      * @param word
      */
     public void delete(String word) {
-
+        if (search(word) != 0) {
+            char[] chars = word.toCharArray();
+            NodeBaseArray node = rootNode;
+            node.pass--;
+            int index = 0;
+            for (int i = 0; i < chars.length; i++) {
+                index = chars[i] - 'a';
+                if (--node.nexts[index].pass == 0) {//没必要在向下遍历了
+                    node.nexts[index] = null;
+                    return;
+                }
+                node = node.nexts[index];
+            }
+            node.end--;
+        }
     }
 
     /**
@@ -97,18 +111,32 @@ public class Code01_TrieTreeBaseArray {
      */
     public int prefixStart(String word) {
 
-        return 0;
+        if (word == null || word == "") {
+            return 0;
+        }
+        char[] chars = word.toCharArray();
+        NodeBaseArray curNode = rootNode;
+        int index = 0;
+        for (int i = 0; i < chars.length; i++) {
+            index = chars[i] - 'a';
+            if (curNode.nexts[index] == null) {
+                return 0;
+            }
+            curNode = curNode.nexts[index];
+        }
+        return curNode.pass;
     }
 
 
     public static void main(String[] args) {
         Code01_TrieTreeBaseArray treeBaseArray = new Code01_TrieTreeBaseArray();
         treeBaseArray.insert("abc");
-        treeBaseArray.insert("abe");
-        treeBaseArray.insert("abcd");
-        treeBaseArray.insert("abc");
+//        treeBaseArray.insert("abe");
+//        treeBaseArray.insert("abcd");
+//        treeBaseArray.insert("abc");
+        treeBaseArray.delete("abc");
+//        System.out.println(treeBaseArray.prefixStart("abc"));
         System.out.println(treeBaseArray.search("abc"));
-        System.out.println(treeBaseArray.search("abd"));
-        System.out.println(treeBaseArray.search("abcd"));
+//        System.out.println(treeBaseArray.search("abcd"));
     }
 }
