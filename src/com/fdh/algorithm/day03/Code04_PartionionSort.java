@@ -1,17 +1,14 @@
 package com.fdh.algorithm.day03;
 
 
-import com.fdh.algorithm.util.ArrayUtil;
-
 import java.util.Arrays;
 
 import static com.fdh.algorithm.util.ArrayUtil.*;
-import static com.fdh.algorithm.util.ArrayUtil.printArray;
 
 /**
  *
  */
-public class PartionionSort {
+public class Code04_PartionionSort {
 
 
     /**
@@ -46,7 +43,6 @@ public class PartionionSort {
         int lessIndex = l - 1;
         int greaterIndex = r + 1;
         int index = l;
-        int count = 0;
         while (index < greaterIndex) {
             if (arr[index] < target) {
                 swap(arr, index++, ++lessIndex);
