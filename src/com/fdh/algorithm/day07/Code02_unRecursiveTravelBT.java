@@ -60,6 +60,30 @@ public class Code02_unRecursiveTravelBT {
         }
     }
 
+    public static void postOrderTravelBT(BTNode head) {
+        if (head == null) {
+            return;
+        }
+        Stack<BTNode> mstack = new Stack<>();
+        Stack<BTNode> mstack2 = new Stack<>();
+        mstack.push(head);
+        while (!mstack.isEmpty()) {
+            BTNode btNode = mstack.pop();
+            mstack2.push(btNode);
+            if (btNode.getLeft() != null) {
+                mstack.push(btNode.getLeft());
+            }
+            if (btNode.getRight() != null) {
+                mstack.push(btNode.getRight());
+            }
+        }
+
+        while (!mstack2.isEmpty()){
+            BTNode pop = mstack2.pop();
+            System.out.print(pop.getValue()+",");
+        }
+    }
+
     public static void main(String[] args) {
         BTNode head = new BTNode(1);
         head.setLeft(new BTNode(2));
@@ -68,10 +92,10 @@ public class Code02_unRecursiveTravelBT {
         head.getLeft().setRight(new BTNode(5));
         head.getRight().setLeft(new BTNode(6));
         head.getRight().setRight(new BTNode(7));
-        preOrderTravelBT(head);
-        System.out.println();
-        middleOrderTravelBT(head);
+//        preOrderTravelBT(head);
 //        System.out.println();
-//        postOrderTravelBT(head);
+//        middleOrderTravelBT(head);
+        System.out.println();
+        postOrderTravelBT(head);
     }
 }
