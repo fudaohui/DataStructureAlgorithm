@@ -60,6 +60,11 @@ public class Code02_unRecursiveTravelBT {
         }
     }
 
+    /**
+     * 后续遍历
+     *
+     * @param head
+     */
     public static void postOrderTravelBT(BTNode head) {
         if (head == null) {
             return;

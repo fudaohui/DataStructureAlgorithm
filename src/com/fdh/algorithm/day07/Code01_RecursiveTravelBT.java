@@ -8,7 +8,7 @@ public class Code01_RecursiveTravelBT {
 
     /**
      * 前序遍历：
-     * 每个子树都是【头左（子数）右】
+     * 每个子树都是【头左（子树）右】
      *
      * @param head
      */
@@ -18,13 +18,13 @@ public class Code01_RecursiveTravelBT {
         }
         //先打印头
         System.out.print(head.getValue() + ", ");
-        preOrderTravelBT(head.getLeft());//递归左子数
+        preOrderTravelBT(head.getLeft());//递归左子树
         preOrderTravelBT(head.getRight());//递归右子树
     }
 
     /**
      * 中序遍历
-     * 每个子树都是【左（字数）头右（子数）】
+     * 每个子树都是【左（子树）头右（子树）】
      *
      * @param head
      */
