@@ -1,58 +1,83 @@
 package com.fdh.algorithm.day07;
 
-import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * 二叉树的序列化和反序列化
  * 方法：
  * 1、使用什么方式序列化就使用什么方式反序列化
  * 2、序列化时候不能省去null孩子，后者无法序列化
- * 这里实现中序和层序序列化和反序列化
+ * 这里实现后序和层序序列化和反序列化
+ * 注：中序遍历不能反序列化
  */
 public class Code05_SerializeAndReserializeTree {
 
     /**
-     * 中序遍历：每个子树都是：左子树，头节点，右子树
+     * 后序遍历：每个子树都是：左子树，右子树，头节点
      *
      * @param header
      * @return
      */
-    public static Queue<Integer> middleSerializeTree(BTNode header) {
-        Queue<Integer> queue = new LinkedList<>();
-        middleSe(queue, header);
-        return queue;
+    public static Stack<Integer> postSerializeTree(BTNode header) {
+        Stack<Integer> stackNodes = new Stack<>();
+        postSerial(stackNodes, header);
+        return stackNodes;
     }
 
-    private static void middleSe(Queue<Integer> queue, BTNode header) {
+    private static void postSerial(Stack<Integer> stack, BTNode header) {
         if (header == null) {//不可忽略空
-            queue.add(null);
+            stack.add(null);
         } else {
-            middleSe(queue, header.getLeft());
-            queue.add(header.getValue());
-            middleSe(queue, header.getRight());
+            postSerial(stack, header.getLeft());
+            postSerial(stack, header.getRight());
+            stack.add(header.getValue());
         }
     }
 
     /**
      * 反序列化
      *
-     * @param queue
+     * @param stackNodes
      * @return
      */
-    private BTNode reMiddleSerialize(Queue<Integer> queue) {
-        if (queue == null || queue.size() <= 0) {
+    private static BTNode postReSerialize(Stack<Integer> stackNodes) {
+        if (stackNodes == null || stackNodes.size() <= 0) {
             return null;
         }
-
-        return reMid(queue);
+        return postReserialBuild(stackNodes);
     }
 
-    public BTNode reMid(Queue<Integer> queue) {
-        Integer nodeV = queue.poll();
-        BTNode header = new BTNode(nodeV);
-        header.setLeft(reMid(queue));
-        header.setRight(reMid(queue));
-        return header;
+    public static BTNode postReserialBuild(Stack<Integer> stackNodes) {
+        Integer value = stackNodes.pop();
+        if (value == null) {
+            return null;
+        }
+        BTNode head = new BTNode(value);
+        head.setRight(postReserialBuild(stackNodes));
+        head.setLeft(postReserialBuild(stackNodes));
+        return head;
+    }
+
+    public static void main(String[] args) {
+        BTNode head = new BTNode(1);
+        head.setLeft(new BTNode(2));
+        head.setRight(new BTNode(3));
+        head.getLeft().setLeft(new BTNode(4));
+        head.getLeft().setRight(new BTNode(5));
+        head.getRight().setLeft(new BTNode(6));
+        head.getRight().setRight(new BTNode(7));
+        Stack<Integer> stack = postSerializeTree(head);
+        for (Integer integer : stack) {
+            System.out.print(integer == null ? "null," : integer + ",");
+        }
+
+        System.out.println();
+        BTNode btNode = postReSerialize(stack);
+        Stack<Integer> stack1 = postSerializeTree(btNode);
+        for (Integer integer : stack1) {
+            System.out.print(integer == null ? "null," : integer + ",");
+        }
+
     }
 }
