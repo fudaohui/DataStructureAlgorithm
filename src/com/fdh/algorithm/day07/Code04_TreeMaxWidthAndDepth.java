@@ -7,7 +7,7 @@ import java.util.Queue;
  * 获取二叉树的最大宽度
  * 方法：宽度优先遍历（队列），然后找到每一层的开始（或者结束）都可以，这里演示找结束
  */
-public class Code04_TreeMaxWidth {
+public class Code04_TreeMaxWidthAndDepth {
 
 
     public static int countTreeMaxWidth(BTNode head) {
@@ -32,13 +32,26 @@ public class Code04_TreeMaxWidth {
                 nextLevelNode = btNode.getRight();//直到飘到最右边的节点
             }
             //何时计算？队列吐出的节点等于当前层节点
-            if(btNode == cueLevelEndNode){
+            if (btNode == cueLevelEndNode) {
                 cueLevelEndNode = nextLevelNode;
-                max = Math.max(max,curLevelNotes);
+                max = Math.max(max, curLevelNotes);
                 curLevelNotes = 0;
             }
         }
         return max;
+    }
+
+    /**
+     * 求二叉树的最大深度
+     *
+     * @param header
+     * @return
+     */
+    public static int countBTDepth(BTNode header) {
+        if (header == null) {
+            return 0;
+        }
+        return Math.max(countBTDepth(header.getLeft()), countBTDepth(header.getRight())) + 1;
     }
 
     public static void main(String[] args) {
@@ -50,5 +63,6 @@ public class Code04_TreeMaxWidth {
         head.getRight().setLeft(new BTNode(6));
         head.getRight().setRight(new BTNode(7));
         System.out.println(countTreeMaxWidth(head));
+        System.out.println(countBTDepth(head));
     }
 }
