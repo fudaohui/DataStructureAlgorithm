@@ -1,5 +1,7 @@
 package com.fdh.algorithm.day07;
 
+import java.util.AbstractQueue;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -59,23 +61,89 @@ public class Code05_SerializeAndReserializeTree {
         return head;
     }
 
+
+    /**
+     * 宽度优先遍历序列化
+     *
+     * @param header
+     * @return
+     */
+    public static Queue<Integer> levelSerialBT(BTNode header) {
+        Queue<BTNode> nodeQueue = new LinkedList();
+        Queue<Integer> valueQueue = new LinkedList();
+        nodeQueue.add(header);
+        valueQueue.add(header.getValue());
+        if (header == null) {
+            valueQueue.add(null);
+        }
+        while (!nodeQueue.isEmpty()) {
+            BTNode btNode = nodeQueue.poll();
+            if (btNode.getLeft() != null) {
+                valueQueue.add(btNode.getLeft().getValue());
+                nodeQueue.add(btNode.getLeft());
+            } else {
+                valueQueue.add(null);
+            }
+            if (btNode.getRight() != null) {
+                valueQueue.add(btNode.getRight().getValue());
+                nodeQueue.add(btNode.getRight());
+            } else {
+                valueQueue.add(null);
+            }
+        }
+        return valueQueue;
+    }
+
+
+    public static BTNode levelSerialBT(Queue<Integer> vQueue) {
+        if (vQueue.isEmpty()) {
+            return null;
+        }
+        Integer integer = vQueue.poll();
+        BTNode header = new BTNode(integer);
+        Queue<BTNode> nodeQueue = new LinkedList<>();
+        nodeQueue.add(header);
+        while (!nodeQueue.isEmpty()) {
+            BTNode btNode = nodeQueue.poll();
+            btNode.setLeft(createBTNodeByValue(vQueue.poll()));
+            btNode.setRight(createBTNodeByValue(vQueue.poll()));
+            if (btNode.getLeft() != null) {
+                nodeQueue.add(btNode.getLeft());
+            }
+            if (btNode.getRight() != null) {
+                nodeQueue.add(btNode.getRight());
+            }
+        }
+        return header;
+    }
+
+    public static BTNode createBTNodeByValue(Integer v) {
+        if (v == null) {
+            return null;
+        } else {
+            return new BTNode(v);
+        }
+    }
+
     public static void main(String[] args) {
         BTNode head = new BTNode(1);
         head.setLeft(new BTNode(2));
         head.setRight(new BTNode(3));
-        head.getLeft().setLeft(new BTNode(4));
+//        head.getLeft().setLeft(new BTNode(4));
         head.getLeft().setRight(new BTNode(5));
         head.getRight().setLeft(new BTNode(6));
         head.getRight().setRight(new BTNode(7));
-        Stack<Integer> stack = postSerializeTree(head);
-        for (Integer integer : stack) {
+//        Stack<Integer> data = postSerializeTree(head);
+//        head.getLeft().getLeft().setLeft(new BTNode(8));
+//        head.getLeft().getLeft().setRight(new BTNode(9));
+        Queue<Integer> data = levelSerialBT(head);
+        for (Integer integer : data) {
             System.out.print(integer == null ? "null," : integer + ",");
         }
-
+        BTNode  btNode = levelSerialBT(data);
         System.out.println();
-        BTNode btNode = postReSerialize(stack);
-        Stack<Integer> stack1 = postSerializeTree(btNode);
-        for (Integer integer : stack1) {
+        Queue<Integer> data1 = levelSerialBT(btNode);
+        for (Integer integer : data1) {
             System.out.print(integer == null ? "null," : integer + ",");
         }
 
