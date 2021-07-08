@@ -74,14 +74,13 @@ public class Code06_PrintBT {
 
     /**
      * 打印结果
-     * 7
-     * 3
-     * 6
+     *     7
+     *   3
+     *     6
      * 1
-     * 5
-     * 2
-     * 4
-     *
+     *     5
+     *   2
+     *     4
      * @param args
      */
     public static void main(String[] args) {
