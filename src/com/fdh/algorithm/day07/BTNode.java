@@ -5,9 +5,9 @@ package com.fdh.algorithm.day07;
  */
 public class BTNode {
 
-    private Integer value;
-    private BTNode left;//左子数节点
-    private BTNode right;//右子数节点
+    public Integer value;
+    public BTNode left;//左子数节点
+    public BTNode right;//右子数节点
 
     public BTNode(Integer value) {
         this.value = value;

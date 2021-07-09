@@ -5,6 +5,8 @@ import com.fdh.algorithm.day07.Code06_PrintBT;
 
 /**
  * 平衡二叉树判断
+ * 思路为：分别求左右子树的平衡性，递归到叶子节点
+ * 注：左右子树平衡，自己不一定平衡需要通过高度计算
  */
 public class Code01_isBalanceBT {
 
