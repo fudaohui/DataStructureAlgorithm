@@ -1,5 +1,7 @@
 package com.fdh.algorithm.day07;
 
+import com.fdh.algorithm.day02.Node;
+
 /**
  * 递归方式前序，中序，后序遍历二叉树
  *
@@ -58,17 +60,25 @@ public class Code01_RecursiveTravelBT {
     }
 
     public static void main(String[] args) {
+
         BTNode head = new BTNode(1);
         head.setLeft(new BTNode(2));
         head.setRight(new BTNode(3));
-        head.getLeft().setLeft(new BTNode(4));
-        head.getLeft().setRight(new BTNode(5));
-        head.getRight().setLeft(new BTNode(6));
-        head.getRight().setRight(new BTNode(7));
-        preOrderTravelBT(head);
-        System.out.println();
-        middleOrderTravelBT(head);
-        System.out.println();
-        postOrderTravelBT(head);
+//        head.getLeft().setLeft(new BTNode(4));
+//        head.getLeft().setRight(new BTNode(5));
+//        head.getRight().setLeft(new BTNode(6));
+//        head.getRight().setRight(new BTNode(7));
+        head.getRight().setLeft(new BTNode(4));
+        head.getRight().getLeft().setLeft(new BTNode(5));
+        head.getRight().getLeft().setRight(new BTNode(6));
+
+        BTNode head1 = new BTNode(8);
+        head1.setLeft(new BTNode(9));
+        head1.setRight(head);
+//        preOrderTravelBT(head);
+//        System.out.println();
+        middleOrderTravelBT(head1);
+//        System.out.println();
+//        postOrderTravelBT(head);
     }
 }
