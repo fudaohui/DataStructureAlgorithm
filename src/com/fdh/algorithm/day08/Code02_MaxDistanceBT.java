@@ -12,32 +12,47 @@ import com.fdh.algorithm.day07.BTNode;
 public class Code02_MaxDistanceBT {
 
 
+    static class Info {
+        public int height;
+        public int maxDistance;
+
+        public Info(int height, int maxDistance) {
+            this.height = height;
+            this.maxDistance = maxDistance;
+        }
+    }
+
     public static int computerBTMaxDistance(BTNode head) {
 
         if (head == null) {
             return 0;
         }
-        return process(head.getLeft());
+        return process(head).maxDistance;
     }
 
-    private static int process(BTNode btNode) {
+
+    private static Info process(BTNode btNode) {
         if (btNode == null) {
-            return 0;
+            return new Info(0, 0);
         }
-        int maxDistance1 = process(btNode.getLeft());
-        int maxDistance2 = process(btNode.getRight());
-        int a = maxDistance1 + maxDistance2 + 1;
-        return Math.max(a, 0);
+        Info leftInfo = process(btNode.getLeft());//左树高度和最大距离
+        Info leftInfo2 = process(btNode.getRight());//左树高度和最大距离
+        int height = Math.max(leftInfo.height, leftInfo2.height) + 1;//此节点为父的高度
+        int maxDistance = Math.max(leftInfo.height + leftInfo2.height + 1, Math.max(leftInfo.maxDistance, leftInfo2.maxDistance));
+        return new Info(height, maxDistance);
     }
+
 
     public static void main(String[] args) {
         BTNode head = new BTNode(1);
-        head.setLeft(new BTNode(2));
-        head.setRight(new BTNode(3));
-        head.getLeft().setLeft(new BTNode(4));
-        head.getLeft().setRight(new BTNode(5));
-        head.getLeft().getRight().setRight(new BTNode(5));
-        head.getRight().setRight(new BTNode(8));
+        head.setRight(new BTNode(2));
+        head.getRight().setLeft(new BTNode(93));
+        head.getRight().getLeft().setRight(new BTNode(100));
+//        head.setRight(new BTNode(3));
+//        head.getLeft().setLeft(new BTNode(4));
+//        head.getLeft().setRight(new BTNode(5));
+//        head.getLeft().getRight().setRight(new BTNode(5));
+//        head.getRight().setRight(new BTNode(8));
 
 
         System.out.println(computerBTMaxDistance(head));
