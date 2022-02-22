@@ -105,55 +105,73 @@ public class KM {
         return false;
     }
 
-    // 为了测试
+    // 邻接矩阵matrix中，所有的点有N个，matrix[i][j]表示点i到点j的距离或者权重
+//    public static int[][] randomGraph(int N, int V) {
+//        int[][] graph = new int[N][N];
+//        for (int i = 0; i < N; i++) {
+//            for (int j = i + 1; j < N; j++) {
+//                int num = (int) (Math.random() * V);
+//                graph[i][j] = num;
+//                graph[j][i] = num;
+//            }
+//        }
+//        return graph;
+//    }
+
+
+    // 二部图
     public static int[][] randomGraph(int N, int V) {
         int[][] graph = new int[N][N];
         for (int i = 0; i < N; i++) {
-            for (int j = i; j < N; j++) {
+            for (int j = 0; j < N; j++) {
                 int num = (int) (Math.random() * V);
                 graph[i][j] = num;
-                graph[j][i] = num;
             }
         }
         return graph;
     }
-
     // 为了测试
-//	public static void main(String[] args) {
-//		int N = 10;
-//		int V = 20;
-//		int testTime = 100;
-//		System.out.println("测试开始");
-//		for (int i = 0; i < testTime; i++) {
-//			int[][] graph = randomGraph(N, V);
-//			int ans1 = right(graph);
-//			int ans2 = km(graph);
-//			if (ans1 != ans2) {
-//				System.out.println("Oops!");
-//				for (int r = 0; r < graph.length; r++) {
-//					for (int c = 0; c < graph.length; c++) {
-//						System.out.print(graph[r][c] + " ");
-//					}
-//					System.out.println();
-//				}
-//				System.out.println(ans1);
-//				System.out.println(ans2);
-//			}
-//		}
-//		System.out.println("测试结束");
+	public static void main(String[] args) {
+
+		int N = 4;
+		int V = 20;
+		int testTime = 1;
+		System.out.println("测试开始");
+		for (int i = 0; i < testTime; i++) {
+			int[][] graph = randomGraph(N, V);
+			int ans1 = right(graph);
+			int ans2 = km(graph);
+			if (ans1 != ans2) {
+				System.out.println("Oops!");
+				for (int r = 0; r < graph.length; r++) {
+					for (int c = 0; c < graph.length; c++) {
+						System.out.print(graph[r][c] + " ");
+					}
+					System.out.println();
+				}
+				System.out.println(ans1);
+				System.out.println(ans2);
+			}
+		}
+		System.out.println("测试结束");
+
+	}
+
+
+//    public static void main(String[] args) {
+//        for (int k = 0; k < 1; k++) {
+//            int[][] ints = randomGraph(2, 10);
+//            for (int i = 0; i < ints.length; i++) {
+//                int[] anInt = ints[i];
+//                for (int j = 0; j < anInt.length; j++) {
+//                    System.out.print(ints[i][j] + "    ");
+//                }
+//                System.out.println();
+//            }
 //
-//	}
-
-
-    public static void main(String[] args) {
-        int[][] ints = randomGraph(2, 10);
-        for (int i = 0; i < ints.length; i++) {
-            int[] anInt = ints[i];
-            for (int j = 0; j < anInt.length; j++) {
-                System.out.print(ints[i][j] + "    ");
-            }
-            System.out.println();
-        }
-    }
+//            System.out.println("-------------------------");
+//        }
+//
+//    }
 
 }

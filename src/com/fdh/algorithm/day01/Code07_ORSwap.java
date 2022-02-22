@@ -37,8 +37,10 @@ public class Code07_ORSwap {
 
 
 //        show bug  两个引用一定不要相同！！！！！
-        int[] b = {2, 2, 3};
-        swap(b, 0, 0);
-        ArrayUtil.printArray(b);
+//        int[] b = {2, 2, 3};
+//        swap(b, 0, 0);
+//        ArrayUtil.printArray(b);
+
+        System.out.println(5^7^5);
     }
 }
